@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Functionalities</title>
+</head>
+<body>
+    <h2>1. Counting Mechanism (Increment and Decrement)</h2>
+    <button onclick="decrement()">Decrement</button>
+    <span id="count">0</span>
+    <button onclick="increment()">Increment</button>
+
+    <h2>2. BMI Calculator</h2>
+    <input type="number" id="weight" placeholder="Enter weight (kg)">
+    <input type="number" id="height" placeholder="Enter height (m)">
+    <button onclick="calculateBMI()">Calculate BMI</button>
+    <p id="bmi-result"></p>
+
+    <h2>3. Change Text Color of Div Box</h2>
+    <input type="text" id="userInput" placeholder="Enter color">
+    <button onclick="changeColor()">Change Color</button>
+    <div id="colorBox" style="width: 200px; height: 100px; border: 1px solid black; text-align: center; padding-top: 30px;">
+        Text Color Box
+    </div>
+
+    <h2>4. Form Validation (Password Strength and Confirm Password)</h2>
+    <form onsubmit="return validateForm()">
+        <input type="password" id="password" placeholder="Enter password">
+        <input type="password" id="confirmPassword" placeholder="Confirm password">
+        <p id="passwordStrength"></p>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // 1. Counting Mechanism
+        let count = 0;
+
+        function increment() {
+            count++;
+            document.getElementById("count").innerText = count;
+        }
+
+        function decrement() {
+            count--;
+            document.getElementById("count").innerText = count;
+        }
+
+        // 2. BMI Calculator
+        function calculateBMI() {
+            const weight = document.getElementById("weight").value;
+            const height = document.getElementById("height").value;
+
+            if(weight && height) {
+                const bmi = weight / (height * height);
+                document.getElementById("bmi-result").innerText = `Your BMI: ${bmi.toFixed(2)}`;
+            } else {
+                alert("Please enter both weight and height.");
+            }
+        }
+
+        // 3. Change Text Color of Div Box
+        function changeColor() {
+            const color = document.getElementById("userInput").value;
+            document.getElementById("colorBox").style.color = color;
+        }
+
+        // 4. Form Validation (Password Strength and Confirm Password)
+        function validateForm() {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Password strength check
+            const strengthText = document.getElementById("passwordStrength");
+            if(password.length < 8) {
+                strengthText.innerText = "Password is too short. Must be at least 8 characters.";
+                return false;
+            }
+
+            // Check if passwords match
+            if(password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+
+            return true;
+        }
+
+        // Password strength feedback
+        document.getElementById("password").addEventListener("input", function() {
+            const password = document.getElementById("password").value;
+            const strengthText = document.getElementById("passwordStrength");
+
+            if(password.length < 6) {
+                strengthText.innerText = "Password strength: Weak";
+            } else if(password.length < 10) {
+                strengthText.innerText = "Password strength: Medium";
+            } else {
+                strengthText.innerText = "Password strength: Strong";
+            }
+        });
+    </script>
+</body>
+</html>
